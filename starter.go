@@ -52,6 +52,12 @@ func (m DigModule) _load(id string, cfg map[string]interface{}) {
 }
 
 func (m DigModule) Load(value interface{}) {
+	if value == nil {
+		defaultNamespace = cast.ToString(m.Name())
+		m._load(defaultNamespace, map[string]interface{}{})
+		return
+	}
+
 	items := cast.ToStringMap(value)
 	if items["id"] != nil {
 		defaultNamespace = cast.ToString(items["id"])
